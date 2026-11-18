@@ -23,10 +23,13 @@ if __name__=="__main__":
         n_steps=2000
         dt=t_fin/n_steps
         for i in range(n_steps):
-            x2=((2*L*o*o*np.pi*np.cos(o*i*dt))/3+g*np.cos(np.pi*np.cos(o*i*dt)/2))/np.sin(np.pi*np.cos(o*i*dt)/2)
+            angle=o*i*dt
+            pi_cos_angle=np.cos(angle)
+            pi_sin_angle=np.sin(angle)
+            x2=((2*L*o*o*pi_cos_angle)/3+g*np.cos(pi_cos_angle/2))/np.sin(pi_cos_angle/2)
             x_1+=x2*dt
             x+=(0.5*x2+x_1)*dt
-            F_vec.append((m+M)*x2-m*L*o*o*np.pi*np.cos(o*i*dt)*np.sin(np.pi*np.cos(o*i*dt)/2)/2-m*L*np.square(np.pi*o*np.sin(i*dt)/2)*np.cos(np.pi*np.cos(o*i*dt)/2))
+            F_vec.append((m+M)*x2-m*L*o*o*pi_cos_angle*np.sin(pi_cos_angle/2)/2-m*L*np.square(o*pi_sin_angle/2)*np.cos(pi_cos_angle/2))
         x_1_fin.append(x_1)
         F_trace.append(F_vec)
     F_trace=np.array(F_trace)
